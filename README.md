@@ -1,56 +1,37 @@
-# Game Theory in Nigerian Presidential Elections
+# Vote data — Nigerian presidential elections, 2015 / 2019 / 2023
 
-Code accompanying the manuscript *"Game Theory in Mathematics for Programmers:
-A Computational Approach Using Game Theory to Analyse Strategic Voting in
-Nigerian Presidential Elections"* (submitted to Humanities and Social Sciences
-Communications).
+Source: official INEC declared results, compiled from public secondary
+transcriptions:
 
-## Contents
+- `votes_2015.csv` — APC (Buhari) and PDP (Jonathan) vote counts per state.
+  Compiled from the results table on the "2015 Nigerian general election"
+  Wikipedia article (sourced there to INEC). State-level totals sum exactly
+  to the official national totals (APC 15,424,921 / PDP 12,853,162).
 
-- `voting_rule.py` — implementation of Nigeria's modified plurality rule
-  (national plurality + 25%-in-24-states geographic threshold), used to
-  determine election winners from a vote dictionary.
-- `nash_equilibrium.py` — checks whether an observed vote-share profile is
-  consistent with Nash equilibrium by testing profitable unilateral
-  deviations.
-- `manipulation_simulation.py` — Impartial Culture profile generator and
-  manipulation-rate simulator used to estimate how often the voting rule is
-  manipulable.
-- `data/` — state-level INEC vote totals for the 2015, 2019, and 2023
-  presidential elections, compiled from public sources. **See
-  `data/README.md` for an important accuracy caveat on the 2023 file
-  before treating it as final.**
+- `votes_2019.csv` — APC (Buhari) and PDP (Atiku) vote counts per state.
+  Compiled from the results table on the "2019 Nigerian general election"
+  Wikipedia article (sourced there to BBC / This Day / Vanguard, collated
+  from INEC declarations). State-level totals sum exactly to the official
+  national totals (APC 15,191,847 / PDP 11,262,978).
 
-## ⚠️ About the data
+- `votes_2023.csv` — APC, PDP, LP, and NNPP vote counts per state. Compiled
+  from Vanguard News's tabulation of INEC's declared 2023 state-by-state
+  results.
 
-The manuscript's own text only reproduced a few illustrative vote counts
-(Lagos, Kano, Ogun) as a worked example — the full 36-state + FCT vote
-totals used in the actual analysis were not present in the submitted
-document. The CSVs in `data/` were compiled afterwards from public INEC
-results (via Wikipedia and Vanguard News) to satisfy the journal's data
-availability requirement. The 2015 and 2019 files sum exactly to the
-official national totals; the 2023 file has small (~0.1–0.2%) discrepancies
-from transcription artifacts in the secondary source and should be
-verified against INEC's official IReV portal before being cited as final
-— see `data/README.md`.
+  ⚠️ **Known data-quality caveat:** the Vanguard table contains visible
+  transcription artifacts (stray spaces in numbers, at least one likely
+  digit-order typo in the Benue LP figure). Summing this table gives party
+  totals within ~0.1–0.2% of the official national aggregates (APC:
+  8,805,655 vs. official 8,794,726; LP: 6,098,588 vs. official 6,101,533;
+  NNPP: 1,497,688 vs. official 1,496,671; PDP matches exactly at
+  6,984,520). This is very likely due to a small number of individual
+  state-level transcription errors rather than a systematic issue, but
+  **the exact per-state 2023 figures should be verified against INEC's
+  IReV portal or another certified result sheet before being treated as
+  final** — the 2015 and 2019 files above do not have this issue, as
+  their state-level sums match the official totals exactly.
 
-## Requirements
-
-```
-pip install -r requirements.txt
-```
-
-## Usage
-
-```python
-from voting_rule import nigerian_plurality_winner, vote_share_summary
-from nash_equilibrium import is_nash_equilibrium
-from manipulation_simulation import generate_ic_profile, simulate_manipulation_rate
-
-winner = nigerian_plurality_winner(votes)
-```
-
-## Citation
-
-If you use this code, please cite the manuscript (details to be updated on
-publication).
+None of these files were part of the manuscript as submitted; they were
+compiled afterwards from public sources to satisfy the journal's data
+availability requirement, and should be checked against your own working
+data/results before being cited as authoritative.
